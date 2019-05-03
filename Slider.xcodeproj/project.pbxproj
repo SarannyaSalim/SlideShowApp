@@ -8,22 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		6048CEC2002766970F476724 /* Pods_Slider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B5D48731287DF43885DC2E /* Pods_Slider.framework */; };
+		8448FEDF227C382400456ED1 /* SlideImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8448FEDE227C382400456ED1 /* SlideImage.swift */; };
+		8448FEE5227C434200456ED1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8448FEE4227C434200456ED1 /* Assets.xcassets */; };
+		84E66507227C44FB001490C1 /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84E66506227C44FB001490C1 /* bgm.mp3 */; };
 		84EAD92E227C2C290083769A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EAD92D227C2C290083769A /* AppDelegate.swift */; };
 		84EAD930227C2C290083769A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EAD92F227C2C290083769A /* ViewController.swift */; };
 		84EAD933227C2C290083769A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84EAD931227C2C290083769A /* Main.storyboard */; };
 		84EAD936227C2C290083769A /* Slider.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84EAD934227C2C290083769A /* Slider.xcdatamodeld */; };
-		84EAD938227C2C2A0083769A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84EAD937227C2C2A0083769A /* Assets.xcassets */; };
 		84EAD93B227C2C2A0083769A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84EAD939227C2C2A0083769A /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		17B5D48731287DF43885DC2E /* Pods_Slider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Slider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8448FEDE227C382400456ED1 /* SlideImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideImage.swift; sourceTree = "<group>"; };
+		8448FEE4227C434200456ED1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		84E66506227C44FB001490C1 /* bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm.mp3; sourceTree = "<group>"; };
 		84EAD92A227C2C290083769A /* Slider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slider.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84EAD92D227C2C290083769A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84EAD92F227C2C290083769A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		84EAD932227C2C290083769A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84EAD935227C2C290083769A /* Slider.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Slider.xcdatamodel; sourceTree = "<group>"; };
-		84EAD937227C2C2A0083769A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84EAD93A227C2C2A0083769A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84EAD93C227C2C2A0083769A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		913DD877CF7DABABDC461749 /* Pods-Slider.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Slider.release.xcconfig"; path = "Target Support Files/Pods-Slider/Pods-Slider.release.xcconfig"; sourceTree = "<group>"; };
@@ -71,9 +75,11 @@
 		84EAD92C227C2C290083769A /* Slider */ = {
 			isa = PBXGroup;
 			children = (
+				84E66506227C44FB001490C1 /* bgm.mp3 */,
+				8448FEE4227C434200456ED1 /* Assets.xcassets */,
 				84EAD92D227C2C290083769A /* AppDelegate.swift */,
+				8448FEDE227C382400456ED1 /* SlideImage.swift */,
 				84EAD942227C32750083769A /* View */,
-				84EAD937227C2C2A0083769A /* Assets.xcassets */,
 				84EAD939227C2C2A0083769A /* LaunchScreen.storyboard */,
 				84EAD93C227C2C2A0083769A /* Info.plist */,
 				84EAD934227C2C290083769A /* Slider.xcdatamodeld */,
@@ -160,8 +166,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				84EAD93B227C2C2A0083769A /* LaunchScreen.storyboard in Resources */,
-				84EAD938227C2C2A0083769A /* Assets.xcassets in Resources */,
+				8448FEE5227C434200456ED1 /* Assets.xcassets in Resources */,
 				84EAD933227C2C290083769A /* Main.storyboard in Resources */,
+				84E66507227C44FB001490C1 /* bgm.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +229,7 @@
 				84EAD930227C2C290083769A /* ViewController.swift in Sources */,
 				84EAD936227C2C290083769A /* Slider.xcdatamodeld in Sources */,
 				84EAD92E227C2C290083769A /* AppDelegate.swift in Sources */,
+				8448FEDF227C382400456ED1 /* SlideImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
