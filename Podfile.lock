@@ -1,0 +1,16 @@
+PODS:
+  - SlideShowMaker (0.1.0)
+
+DEPENDENCIES:
+  - SlideShowMaker
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - SlideShowMaker
+
+SPEC CHECKSUMS:
+  SlideShowMaker: 17d46f2dfa935ea4e2e7bc9b1419ed5836b3138e
+
+PODFILE CHECKSUM: a4738ded134e7e7c43aedc48bc04f5f9289d7d42
+
+COCOAPODS: 1.6.1
