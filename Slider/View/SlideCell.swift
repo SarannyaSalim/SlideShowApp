@@ -15,10 +15,11 @@ import UIKit
 class SlideCell: UICollectionViewCell {
     
 //    let imageTap = UITapGestureRecognizer(target: self, action: #selector(imagePressed(_:)))
+    var visibilityStatus  = true
+    var index : Int = 0
     
     @IBOutlet weak var cellImage: UIImageView!
     
-    var visibilityStatus  = true
     
     override init(frame: CGRect) {
         
@@ -36,6 +37,7 @@ class SlideCell: UICollectionViewCell {
     
     @IBAction func deleteBtnPressed(_ sender: Any) {
         visibilityStatus = false
+        DataModel.modelInstance.deleteImage(at: index)
         self.removeFromSuperview()
     }
     

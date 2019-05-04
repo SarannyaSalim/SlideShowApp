@@ -17,7 +17,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, OpalImag
     var avPlayerLayer : AVPlayerLayer!
     var currentSlideIndex:NSInteger = 0
     var slideMax:NSInteger = 0
-    let model = DataModel()
 
     
     @IBOutlet weak var slideImageView: UIImageView!
@@ -25,11 +24,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate, OpalImag
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        model.modelDelegate = self
+        DataModel.modelInstance.modelDelegate = self
     }
 
-    
     @IBAction func showButtonPressed(_ sender: UIButton) {
     
         var audio: AVURLAsset?
@@ -41,15 +38,38 @@ class ViewController: UIViewController, UINavigationControllerDelegate, OpalImag
                 timeRange = CMTimeRange(start: CMTime.zero, duration: audioDuration)
         }
         
-        // OR: VideoMaker(images: images, movement: ImageMovement.fade)
-        guard let imageList = model.uiImagesList else {
-            fatalError()
+        guard let imageList = DataModel.modelInstance.uiImagesList else {
+            fatalError("no images added")
         }
         
-        let maker = VideoMaker(images: imageList, transition: ImageTransition.crossFadeLong)
+        self.makeVideoWith(with: audio, audioTimeRange: timeRange, images: imageList)
+    }
+    
+    @IBAction func galleryBtnPressed(_ sender: UIButton) {
         
+        let imagePicker = OpalImagePickerController()
+        let configuration = OpalImagePickerConfiguration()
+
+        imagePicker.maximumSelectionsAllowed = 10
+        configuration.maximumSelectionsAllowedMessage = NSLocalizedString("You can select a maximum of 10 images!", comment: "")
+        imagePicker.configuration = configuration
+                presentOpalImagePickerController(imagePicker, animated: true, select: { (assets) in
+                        DataModel.modelInstance.getUIImages(from: assets)
+                        imagePicker.dismiss(animated: true, completion: {})
+            
+                }, cancel: {
+                    //Cancel
+                })
+    }
+    
+    
+    //MARK :- misc methods
+    
+    func makeVideoWith(with audio: AVURLAsset?, audioTimeRange: CMTimeRange?, images: [UIImage]){
+        let maker = VideoMaker(images: images, transition: ImageTransition.crossFadeLong)
+        // OR: VideoMaker(images: images, movement: ImageMovement.fade)
         maker.contentMode = .scaleAspectFit
-        maker.exportVideo(audio: audio, audioTimeRange: timeRange, completed: { success, videoURL in
+        maker.exportVideo(audio: audio, audioTimeRange: audioTimeRange, completed: { success, videoURL in
             if let url = videoURL {
                 print(url)  // /Library/Mov/merge.mov
                 
@@ -60,59 +80,49 @@ class ViewController: UIViewController, UINavigationControllerDelegate, OpalImag
                 self.slideImageView.layer.addSublayer(self.avPlayerLayer)
                 avPlayer.play()
                 
+                self.saveVideoToAlbums(from: url)
             }
         }).progress = { progress in
             print(progress)
         }
     }
     
-    @IBAction func galleryBtnPressed(_ sender: UIButton) {
-        
-        let imagePicker = OpalImagePickerController()
-        imagePicker.maximumSelectionsAllowed = 10
-        
-        let configuration = OpalImagePickerConfiguration()
-        configuration.maximumSelectionsAllowedMessage = NSLocalizedString("You can select a maximum of 10 images!", comment: "")
-        imagePicker.configuration = configuration
-        
-        presentOpalImagePickerController(imagePicker, animated: true, select: { (assets) in
-            
-                self.getUIImages(from: assets, callback:{(images) in
-                self.model.getUIImages(from: assets)
-                })
-            
-                imagePicker.dismiss(animated: true, completion: {
+    func saveVideoToAlbums(from url: URL)
+    {
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
+        }) { saved, error in
+            if saved {
                 
-                })
-        }, cancel: {
-            //Cancel
-        })
-        
-    }
-    
-    func getUIImages(from phAssets : [PHAsset], callback: ([UIImage])->Void){
-        
-        let imageManager = PHImageManager.default()
-        var uiImages : [UIImage] = []
-        for ph in phAssets {
-            imageManager.requestImage(for: ph, targetSize: CGSize(width: 300, height: 300), contentMode: .aspectFill, options: nil) { (image, [AnyHashable : Any]?) in
-                uiImages.append(image!)
+                DispatchQueue.main.async {
+                    let alertController = UIAlertController(title: "Your video was successfully saved", message: nil, preferredStyle: .alert)
+                    let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(defaultAction)
+                    self.present(alertController, animated: true, completion: nil)
+                }
+                
+                do{
+                    try FileManager.default.removeItem(at: url)
+                }catch{
+                    print("deletion falied \(error)")
+                }
             }
         }
-        callback(uiImages)
     }
     
+
+    //MARK :- ModelDelegate methods
+    
+    func reloadData() {
+        self.collectionView.reloadData()
+    }
 }
 
 
 extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate{
     
-    func reloadData() {
-        self.collectionView.reloadData()
-    }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let imageList = model.uiImagesList else
+        guard let imageList = DataModel.modelInstance.uiImagesList else
         {
             return 0
         }
@@ -120,13 +130,14 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let imageList = model.uiImagesList else
+        guard let imageList = DataModel.modelInstance.uiImagesList else
         {
             print("no images available")
             fatalError()
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as! SlideCell
         cell.cellImage.image = imageList[indexPath.row]
+        cell.index = indexPath.row
         return cell
     }
 }
