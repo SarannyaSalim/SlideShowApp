@@ -1,16 +1,20 @@
 PODS:
+  - OpalImagePicker (1.5.0)
   - SlideShowMaker (0.1.0)
 
 DEPENDENCIES:
+  - OpalImagePicker
   - SlideShowMaker
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - OpalImagePicker
     - SlideShowMaker
 
 SPEC CHECKSUMS:
+  OpalImagePicker: 0fb2caaa4386524eef1b7979aebebd3ad0a27ef1
   SlideShowMaker: 17d46f2dfa935ea4e2e7bc9b1419ed5836b3138e
 
-PODFILE CHECKSUM: a4738ded134e7e7c43aedc48bc04f5f9289d7d42
+PODFILE CHECKSUM: 5263209061b4b4c0274e6288e6e89fc3628dea95
 
 COCOAPODS: 1.6.1

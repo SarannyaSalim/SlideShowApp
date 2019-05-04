@@ -6,5 +6,6 @@ target 'Slider' do
 
   # Pods for Slider
     pod 'SlideShowMaker'
+    pod 'OpalImagePicker'
 
 end
