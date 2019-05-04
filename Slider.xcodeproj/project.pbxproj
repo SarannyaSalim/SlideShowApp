@@ -58,6 +58,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		841FDA70227D90F6004E0AB8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				84E6650E227C9128001490C1 /* DataModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		84EAD921227C2C290083769A = {
 			isa = PBXGroup;
 			children = (
@@ -87,7 +95,7 @@
 				84EAD939227C2C2A0083769A /* LaunchScreen.storyboard */,
 				84EAD93C227C2C2A0083769A /* Info.plist */,
 				84EAD934227C2C290083769A /* Slider.xcdatamodeld */,
-				84E6650E227C9128001490C1 /* DataModel.swift */,
+				841FDA70227D90F6004E0AB8 /* ViewModel */,
 			);
 			path = Slider;
 			sourceTree = "<group>";

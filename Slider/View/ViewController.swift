@@ -30,45 +30,15 @@ class ViewController: UIViewController, UINavigationControllerDelegate, OpalImag
     }
 
     
-//     @IBAction func showButtonPressed(_ sender: UIButton){
-//
-//        self.slideMax = self.images.count
-//        DispatchQueue.global(qos: .userInteractive).async (
-//            execute: {() -> Void in
-//                while 1 == 1 {
-//                    print ("MAX:"+String(self.slideMax))
-//
-//                    DispatchQueue.main.async(execute: {() -> Void in
-//                        let toImage = self.images[self.currentSlideIndex]
-//                        print ("index:"+String(self.currentSlideIndex))
-//                        UIView.transition(
-//                            with: self.slideImageView,
-//                            duration: 0.9,
-//                            options: .transitionCurlUp,
-//                            animations: {self.slideImageView.image = toImage},
-//                            completion: nil
-//                        )
-//                    })
-//                    self.currentSlideIndex += 1
-//                    if self.currentSlideIndex == self.slideMax {
-//                        self.currentSlideIndex = 0
-//                    }
-//                    sleep(3)
-//                }
-//        })
-//    }
-
-    
-
-    
     @IBAction func showButtonPressed(_ sender: UIButton) {
     
         var audio: AVURLAsset?
         var timeRange: CMTimeRange?
-        if let audioURL = Bundle.main.url(forResource: "bgm", withExtension: "mp3") {
-            audio = AVURLAsset(url: audioURL)
-            let audioDuration = CMTime(seconds: 30, preferredTimescale: audio!.duration.timescale)
-            timeRange = CMTimeRange(start: CMTime.zero, duration: audioDuration)
+        if let audioURL = Bundle.main.url(forResource: "bgm", withExtension: "mp3")
+        {
+                audio = AVURLAsset(url: audioURL)
+                let audioDuration = CMTime(seconds: 30, preferredTimescale: audio!.duration.timescale)
+                timeRange = CMTimeRange(start: CMTime.zero, duration: audioDuration)
         }
         
         // OR: VideoMaker(images: images, movement: ImageMovement.fade)
@@ -83,7 +53,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, OpalImag
             if let url = videoURL {
                 print(url)  // /Library/Mov/merge.mov
                 
-//                let avAssets = AVAsset(url: url)
                 let avPlayer = AVPlayer(url: url)
                 self.avPlayerLayer = AVPlayerLayer(player: avPlayer)
                 self.avPlayerLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
@@ -100,21 +69,21 @@ class ViewController: UIViewController, UINavigationControllerDelegate, OpalImag
     @IBAction func galleryBtnPressed(_ sender: UIButton) {
         
         let imagePicker = OpalImagePickerController()
-        imagePicker.maximumSelectionsAllowed = 5
+        imagePicker.maximumSelectionsAllowed = 10
         
         let configuration = OpalImagePickerConfiguration()
-        configuration.maximumSelectionsAllowedMessage = NSLocalizedString("You can select a maximum of 5 images!", comment: "")
+        configuration.maximumSelectionsAllowedMessage = NSLocalizedString("You can select a maximum of 10 images!", comment: "")
         imagePicker.configuration = configuration
         
         presentOpalImagePickerController(imagePicker, animated: true, select: { (assets) in
             
-            self.getUIImages(from: assets, callback:{(images) in
+                self.getUIImages(from: assets, callback:{(images) in
                 self.model.getUIImages(from: assets)
-            })
+                })
             
-            imagePicker.dismiss(animated: true, completion: {
+                imagePicker.dismiss(animated: true, completion: {
                 
-            })
+                })
         }, cancel: {
             //Cancel
         })
@@ -143,15 +112,16 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate{
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        guard let imageList = model.uiImagesList else {
+        guard let imageList = model.uiImagesList else
+        {
             return 0
         }
         return imageList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let imageList = model.uiImagesList else {
+        guard let imageList = model.uiImagesList else
+        {
             print("no images available")
             fatalError()
         }
@@ -160,5 +130,4 @@ extension ViewController : UICollectionViewDataSource, UICollectionViewDelegate{
         return cell
     }
 }
-//https://stackoverflow.com/questions/54642211/swift-4-xcode-10-play-video-on-app-launch-when-complete-reveal-view-control
 

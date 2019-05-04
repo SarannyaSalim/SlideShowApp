@@ -17,14 +17,17 @@ protocol ModelDelegate {
 class DataModel {
     
     var modelDelegate: ModelDelegate?{
-        didSet{
+        didSet
+        {
             print("delegate set")
         }
     }
     
     var uiImagesList : [UIImage]?{
-        didSet{
-            guard let delegate = modelDelegate else {
+        didSet
+        {
+            guard let delegate = modelDelegate else
+            {
                 fatalError("delegate not set")
             }
             delegate.reloadData()
@@ -37,11 +40,16 @@ class DataModel {
         let imageManager = PHImageManager.default()
         var uiImages : [UIImage] = []
         for ph in phAssets {
-            imageManager.requestImage(for: ph, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFit, options: nil) { (image, [AnyHashable : Any]?) in
-                uiImages.append(image!)
+            
+                    let requestOptions = PHImageRequestOptions()
+                    requestOptions.deliveryMode = .highQualityFormat
+            
+                    imageManager.requestImage(for: ph, targetSize: CGSize(width: ph.pixelWidth, height: ph.pixelHeight), contentMode: .aspectFit, options: requestOptions) { (image, [AnyHashable : Any]?) in
+                
+                    uiImages.append(image!)
+                    self.uiImagesList = uiImages
             }
         }
-        uiImagesList = uiImages
     }
 
 }
